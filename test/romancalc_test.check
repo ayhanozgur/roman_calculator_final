@@ -1,0 +1,301 @@
+#include "romancalc.h"
+
+#test romancalc_test_addition
+	ck_assert_str_eq(addition("I","I"),"II");
+    ck_assert_str_eq(addition("I","II"),"III");
+    ck_assert_str_eq(addition("I","III"),"IV");
+    ck_assert_str_eq(addition("I","IV"),"V");
+    ck_assert_str_eq(addition("I","V"),"VI");
+    ck_assert_str_eq(addition("I","VI"),"VII");
+    ck_assert_str_eq(addition("I","VII"),"VIII");
+    ck_assert_str_eq(addition("I","VIII"),"IX");
+    ck_assert_str_eq(addition("I","IX"),"X");
+    ck_assert_str_eq(addition("I","X"),"XI"); 
+
+    ck_assert_str_eq(addition("X","X"),"XX");
+    ck_assert_str_eq(addition("X","XX"),"XXX");
+    ck_assert_str_eq(addition("X","XXX"),"XL");
+    ck_assert_str_eq(addition("X","XL"),"L");
+    ck_assert_str_eq(addition("X","L"),"LX");
+    ck_assert_str_eq(addition("X","LX"),"LXX");
+    ck_assert_str_eq(addition("X","LXX"),"LXXX");
+    ck_assert_str_eq(addition("X","LXXX"),"XC");
+    ck_assert_str_eq(addition("X","XC"),"C");
+    ck_assert_str_eq(addition("X","C"),"CX"); 
+
+    ck_assert_str_eq(addition("C","C"),"CC");
+    ck_assert_str_eq(addition("C","CC"),"CCC");
+    ck_assert_str_eq(addition("C","CCC"),"CD");
+    ck_assert_str_eq(addition("C","CD"),"D");
+    ck_assert_str_eq(addition("C","D"),"DC");
+    ck_assert_str_eq(addition("C","DC"),"DCC");
+    ck_assert_str_eq(addition("C","DCC"),"DCCC");
+    ck_assert_str_eq(addition("C","DCCC"),"CM");
+    ck_assert_str_eq(addition("C","CM"),"M");
+    ck_assert_str_eq(addition("C","M"),"MC"); 
+
+    ck_assert_str_eq(addition("IV","V"),"IX");
+    ck_assert_str_eq(addition("VI","V"),"XI");
+    ck_assert_str_eq(addition("XL","L"),"XC");
+    ck_assert_str_eq(addition("LX","L"),"CX");
+    ck_assert_str_eq(addition("CD","D"),"CM");
+    ck_assert_str_eq(addition("DC","D"),"MC");  
+
+    ck_assert_str_eq(addition("MDCLXVI","MDCLXVI"),"MMMCCCXXXII");
+    ck_assert_str_eq(addition("MDCLXVI","MMCCXXII"),"MMMDCCCLXXXVIII");
+    ck_assert_str_eq(addition("MDCLXVI","MDCCLXXVII"),"MMMCDXLIII");
+    ck_assert_str_eq(addition("MDCLXVI","MCCCXXXIII"),"MMCMXCIX");
+    ck_assert_str_eq(addition("MDCLXVI","MDCCCLXXXVIII"),"MMMDLIV");
+    ck_assert_str_eq(addition("MDCLXVI","MCDXLIV"),"MMMCX");
+    ck_assert_str_eq(addition("MDCLXVI","MCMXLIX"),"MMMDCXV");
+
+#test romancalc_test_subtraction
+    ck_assert_str_eq(subtraction("II","I"),"I");
+    ck_assert_str_eq(subtraction("III","I"),"II");
+    ck_assert_str_eq(subtraction("IV","I"),"III");
+    ck_assert_str_eq(subtraction("V","I"),"IV");
+    ck_assert_str_eq(subtraction("VI","I"),"V");
+    ck_assert_str_eq(subtraction("VII","I"),"VI");
+    ck_assert_str_eq(subtraction("VIII","I"),"VII");
+    ck_assert_str_eq(subtraction("IX","I"),"VIII");
+    ck_assert_str_eq(subtraction("X","I"),"IX");
+    ck_assert_str_eq(subtraction("XI","I"),"X");
+
+    ck_assert_str_eq(subtraction("XX","X"),"X");
+    ck_assert_str_eq(subtraction("XXX","X"),"XX");
+    ck_assert_str_eq(subtraction("XL","X"),"XXX");
+    ck_assert_str_eq(subtraction("L","X"),"XL");
+    ck_assert_str_eq(subtraction("LX","X"),"L");
+    ck_assert_str_eq(subtraction("LXX","X"),"LX");
+    ck_assert_str_eq(subtraction("LXXX","X"),"LXX");
+    ck_assert_str_eq(subtraction("XC","X"),"LXXX");
+    ck_assert_str_eq(subtraction("C","X"),"XC");
+    ck_assert_str_eq(subtraction("CX","X"),"C");	
+    
+    ck_assert_str_eq(subtraction("CC","C"),"C");
+    ck_assert_str_eq(subtraction("CCC","C"),"CC");
+    ck_assert_str_eq(subtraction("CD","C"),"CCC");
+    ck_assert_str_eq(subtraction("D","C"),"CD");
+    ck_assert_str_eq(subtraction("DC","C"),"D");
+    ck_assert_str_eq(subtraction("DCC","C"),"DC");
+    ck_assert_str_eq(subtraction("DCCC","C"),"DCC");
+    ck_assert_str_eq(subtraction("CM","C"),"DCCC");
+    ck_assert_str_eq(subtraction("M","C"),"CM");
+    ck_assert_str_eq(subtraction("MC","C"),"M");  
+
+    ck_assert_str_eq(subtraction("IX","V"),"IV");
+    ck_assert_str_eq(subtraction("XI","V"),"VI");
+    ck_assert_str_eq(subtraction("XC","L"),"XL");
+    ck_assert_str_eq(subtraction("CX","L"),"LX");
+    ck_assert_str_eq(subtraction("CM","D"),"CD");
+    ck_assert_str_eq(subtraction("MC","D"),"DC");
+
+    ck_assert_str_eq(subtraction("L","I"),"XLIX");
+    ck_assert_str_eq(subtraction("L","IV"),"XLVI");
+    ck_assert_str_eq(subtraction("C","I"),"XCIX");
+    ck_assert_str_eq(subtraction("C","IV"),"XCVI");
+    ck_assert_str_eq(subtraction("D","XC"),"CDX");
+    ck_assert_str_eq(subtraction("D","XL"),"CDLX");
+    ck_assert_str_eq(subtraction("D","IV"),"CDXCVI");
+    ck_assert_str_eq(subtraction("D","I"),"CDXCIX");
+    ck_assert_str_eq(subtraction("M","XC"),"CMX");
+    ck_assert_str_eq(subtraction("M","XL"),"CMLX");
+    ck_assert_str_eq(subtraction("M","IX"),"CMXCI");
+    ck_assert_str_eq(subtraction("M","IV"),"CMXCVI");
+    ck_assert_str_eq(subtraction("M","I"),"CMXCIX");
+
+    ck_assert_str_eq(subtraction("MMMCCCXXXII","MDCLXVI"),"MDCLXVI");
+    ck_assert_str_eq(subtraction("MMMDCCCLXXXVIII","MDCLXVI"),"MMCCXXII");
+    ck_assert_str_eq(subtraction("MMMCDXLIII","MDCLXVI"),"MDCCLXXVII");
+    ck_assert_str_eq(subtraction("MMCMXCIX","MDCLXVI"),"MCCCXXXIII");
+    ck_assert_str_eq(subtraction("MMMDLIV","MDCLXVI"),"MDCCCLXXXVIII");
+    ck_assert_str_eq(subtraction("MMMCX","MDCLXVI"),"MCDXLIV");
+    ck_assert_str_eq(subtraction("MMMDCXV","MDCLXVI"),"MCMXLIX");
+
+    ck_assert_str_eq(subtraction("MMMCCCXXXII","MDCLXVI"),"MDCLXVI");
+    ck_assert_str_eq(subtraction("MMMDCCCLXXXVIII","MMCCXXII"),"MDCLXVI");
+    ck_assert_str_eq(subtraction("MMMCDXLIII","MDCCLXXVII"),"MDCLXVI");
+    ck_assert_str_eq(subtraction("MMCMXCIX","MCCCXXXIII"),"MDCLXVI");
+    ck_assert_str_eq(subtraction("MMMDLIV","MDCCCLXXXVIII"),"MDCLXVI");
+    ck_assert_str_eq(subtraction("MMMCX","MCDXLIV"),"MDCLXVI");
+    ck_assert_str_eq(subtraction("MMMDCXV","MCMXLIX"),"MDCLXVI");
+
+#test romancalc_test_addition_nondecimal
+
+	ck_assert_str_eq(addition_nondecimal("I","I"),"II");
+    ck_assert_str_eq(addition_nondecimal("I","II"),"III");
+    ck_assert_str_eq(addition_nondecimal("I","III"),"IV");
+    ck_assert_str_eq(addition_nondecimal("I","IV"),"V");
+    ck_assert_str_eq(addition_nondecimal("I","V"),"VI");
+    ck_assert_str_eq(addition_nondecimal("I","VI"),"VII");
+    ck_assert_str_eq(addition_nondecimal("I","VII"),"VIII");
+    ck_assert_str_eq(addition_nondecimal("I","VIII"),"IX");
+    ck_assert_str_eq(addition_nondecimal("I","IX"),"X");
+    ck_assert_str_eq(addition_nondecimal("I","X"),"XI"); 
+
+	ck_assert_str_eq(addition_nondecimal("X","X"),"XX");
+    ck_assert_str_eq(addition_nondecimal("X","XX"),"XXX");
+    ck_assert_str_eq(addition_nondecimal("X","XXX"),"XL");
+    ck_assert_str_eq(addition_nondecimal("X","XL"),"L");
+    ck_assert_str_eq(addition_nondecimal("X","L"),"LX");
+    ck_assert_str_eq(addition_nondecimal("X","LX"),"LXX");
+    ck_assert_str_eq(addition_nondecimal("X","LXX"),"LXXX");
+    ck_assert_str_eq(addition_nondecimal("X","LXXX"),"XC");
+    ck_assert_str_eq(addition_nondecimal("X","XC"),"C");
+    ck_assert_str_eq(addition_nondecimal("X","C"),"CX"); 
+
+	ck_assert_str_eq(addition_nondecimal("C","C"),"CC");
+    ck_assert_str_eq(addition_nondecimal("C","CC"),"CCC");
+    ck_assert_str_eq(addition_nondecimal("C","CCC"),"CD");
+    ck_assert_str_eq(addition_nondecimal("C","CD"),"D");
+    ck_assert_str_eq(addition_nondecimal("C","D"),"DC");
+    ck_assert_str_eq(addition_nondecimal("C","DC"),"DCC");
+    ck_assert_str_eq(addition_nondecimal("C","DCC"),"DCCC");
+    ck_assert_str_eq(addition_nondecimal("C","DCCC"),"CM");
+    ck_assert_str_eq(addition_nondecimal("C","CM"),"M");
+    ck_assert_str_eq(addition_nondecimal("C","M"),"MC"); 
+
+    ck_assert_str_eq(addition_nondecimal("IV","V"),"IX");
+    ck_assert_str_eq(addition_nondecimal("VI","V"),"XI");
+    ck_assert_str_eq(addition_nondecimal("XL","L"),"XC");
+    ck_assert_str_eq(addition_nondecimal("LX","L"),"CX");
+    ck_assert_str_eq(addition_nondecimal("CD","D"),"CM");
+    ck_assert_str_eq(addition_nondecimal("DC","D"),"MC");
+
+    ck_assert_str_eq(addition_nondecimal("MDCLXVI","MDCLXVI"),"MMMCCCXXXII");
+    ck_assert_str_eq(addition_nondecimal("MMCCXXII","MDCLXVI"),"MMMDCCCLXXXVIII");
+    ck_assert_str_eq(addition_nondecimal("MDCCLXXVII","MDCLXVI"),"MMMCDXLIII");
+    ck_assert_str_eq(addition_nondecimal("MCCCXXXIII","MDCLXVI"),"MMCMXCIX");
+    ck_assert_str_eq(addition_nondecimal("MDCCCLXXXVIII","MDCLXVI"),"MMMDLIV");
+    ck_assert_str_eq(addition_nondecimal("MCDXLIV","MDCLXVI"),"MMMCX");
+    ck_assert_str_eq(addition_nondecimal("MCMXLIX","MDCLXVI"),"MMMDCXV");
+ 
+#test romancalc_test_subtraction_nondecimal
+   
+    ck_assert_str_eq(subtraction_nondecimal("II","I"),"I");
+    ck_assert_str_eq(subtraction_nondecimal("III","I"),"II");
+    ck_assert_str_eq(subtraction_nondecimal("IV","I"),"III");
+    ck_assert_str_eq(subtraction_nondecimal("V","I"),"IV");
+    ck_assert_str_eq(subtraction_nondecimal("VI","I"),"V");
+    ck_assert_str_eq(subtraction_nondecimal("VII","I"),"VI");
+    ck_assert_str_eq(subtraction_nondecimal("VIII","I"),"VII");
+    ck_assert_str_eq(subtraction_nondecimal("IX","I"),"VIII");
+    ck_assert_str_eq(subtraction_nondecimal("X","I"),"IX");
+    ck_assert_str_eq(subtraction_nondecimal("XI","I"),"X");
+    
+    ck_assert_str_eq(subtraction_nondecimal("XX","X"),"X");
+    ck_assert_str_eq(subtraction_nondecimal("XXX","X"),"XX");
+    ck_assert_str_eq(subtraction_nondecimal("XL","X"),"XXX");
+    ck_assert_str_eq(subtraction_nondecimal("L","X"),"XL");
+    ck_assert_str_eq(subtraction_nondecimal("LX","X"),"L");
+    ck_assert_str_eq(subtraction_nondecimal("LXX","X"),"LX");
+    ck_assert_str_eq(subtraction_nondecimal("LXXX","X"),"LXX");
+    ck_assert_str_eq(subtraction_nondecimal("XC","X"),"LXXX");
+    ck_assert_str_eq(subtraction_nondecimal("C","X"),"XC");
+    ck_assert_str_eq(subtraction_nondecimal("CX","X"),"C");
+    
+    ck_assert_str_eq(subtraction_nondecimal("CC","C"),"C");
+    ck_assert_str_eq(subtraction_nondecimal("CCC","C"),"CC");
+    ck_assert_str_eq(subtraction_nondecimal("CD","C"),"CCC");
+    ck_assert_str_eq(subtraction_nondecimal("D","C"),"CD");
+    ck_assert_str_eq(subtraction_nondecimal("DC","C"),"D");
+    ck_assert_str_eq(subtraction_nondecimal("DCC","C"),"DC");
+    ck_assert_str_eq(subtraction_nondecimal("DCCC","C"),"DCC");
+    ck_assert_str_eq(subtraction_nondecimal("CM","C"),"DCCC");
+    ck_assert_str_eq(subtraction_nondecimal("M","C"),"CM");
+    ck_assert_str_eq(subtraction_nondecimal("MC","C"),"M");
+
+    ck_assert_str_eq(subtraction_nondecimal("IX","V"),"IV");
+    ck_assert_str_eq(subtraction_nondecimal("XI","V"),"VI");
+    ck_assert_str_eq(subtraction_nondecimal("XC","L"),"XL");
+    ck_assert_str_eq(subtraction_nondecimal("CX","L"),"LX");
+    ck_assert_str_eq(subtraction_nondecimal("CM","D"),"CD");
+    ck_assert_str_eq(subtraction_nondecimal("MC","D"),"DC");
+
+    ck_assert_str_eq(subtraction_nondecimal("L","I"),"XLIX");
+    ck_assert_str_eq(subtraction_nondecimal("L","IV"),"XLVI");
+    ck_assert_str_eq(subtraction_nondecimal("C","I"),"XCIX");
+    ck_assert_str_eq(subtraction_nondecimal("C","IV"),"XCVI");
+    ck_assert_str_eq(subtraction_nondecimal("D","XC"),"CDX");
+    ck_assert_str_eq(subtraction_nondecimal("D","XL"),"CDLX");
+    ck_assert_str_eq(subtraction_nondecimal("D","IV"),"CDXCVI");
+    ck_assert_str_eq(subtraction_nondecimal("D","I"),"CDXCIX");
+    ck_assert_str_eq(subtraction_nondecimal("M","XC"),"CMX");
+    ck_assert_str_eq(subtraction_nondecimal("M","XL"),"CMLX");
+    ck_assert_str_eq(subtraction_nondecimal("M","IX"),"CMXCI");
+    ck_assert_str_eq(subtraction_nondecimal("M","IV"),"CMXCVI");
+    ck_assert_str_eq(subtraction_nondecimal("M","I"),"CMXCIX");
+
+    ck_assert_str_eq(subtraction_nondecimal("MMMCCCXXXII","MDCLXVI"),"MDCLXVI");
+    ck_assert_str_eq(subtraction_nondecimal("MMMDCCCLXXXVIII","MDCLXVI"),"MMCCXXII");
+    ck_assert_str_eq(subtraction_nondecimal("MMMCDXLIII","MDCLXVI"),"MDCCLXXVII");
+    ck_assert_str_eq(subtraction_nondecimal("MMCMXCIX","MDCLXVI"),"MCCCXXXIII");
+    ck_assert_str_eq(subtraction_nondecimal("MMMDLIV","MDCLXVI"),"MDCCCLXXXVIII");
+    ck_assert_str_eq(subtraction_nondecimal("MMMCX","MDCLXVI"),"MCDXLIV");
+    ck_assert_str_eq(subtraction_nondecimal("MMMDCXV","MDCLXVI"),"MCMXLIX");
+
+    ck_assert_str_eq(subtraction_nondecimal("MMMCCCXXXII","MDCLXVI"),"MDCLXVI");
+    ck_assert_str_eq(subtraction_nondecimal("MMMDCCCLXXXVIII","MMCCXXII"),"MDCLXVI");
+    ck_assert_str_eq(subtraction_nondecimal("MMMCDXLIII","MDCCLXXVII"),"MDCLXVI");
+    ck_assert_str_eq(subtraction_nondecimal("MMCMXCIX","MCCCXXXIII"),"MDCLXVI");
+    ck_assert_str_eq(subtraction_nondecimal("MMMDLIV","MDCCCLXXXVIII"),"MDCLXVI");
+    ck_assert_str_eq(subtraction_nondecimal("MMMCX","MCDXLIV"),"MDCLXVI");
+    ck_assert_str_eq(subtraction_nondecimal("MMMDCXV","MCMXLIX"),"MDCLXVI");
+    
+#test romancalc_test_input_output_validity
+/* since roman numerical validity check is same function call for different mathematical operations it is tested only with one operation */ 
+	ck_assert_str_eq(addition("IIII","I"),"INVALID");
+    ck_assert_str_eq(addition("VV","I"),"INVALID");
+    ck_assert_str_eq(addition("XXXX","I"),"INVALID");
+    ck_assert_str_eq(addition("LL","I"),"INVALID");
+    ck_assert_str_eq(addition("CCCC","I"),"INVALID");
+    ck_assert_str_eq(addition("DD","I"),"INVALID");
+    ck_assert_str_eq(addition("IIV","I"),"INVALID");
+    ck_assert_str_eq(addition("IIX","I"),"INVALID");
+    ck_assert_str_eq(addition("XXL","I"),"INVALID");
+    ck_assert_str_eq(addition("XXC","I"),"INVALID");
+    ck_assert_str_eq(addition("CCD","I"),"INVALID");
+    ck_assert_str_eq(addition("CCM","I"),"INVALID");
+    ck_assert_str_eq(addition("IIIV","I"),"INVALID");
+    ck_assert_str_eq(addition("IIIX","I"),"INVALID");
+    ck_assert_str_eq(addition("XXXL","I"),"INVALID");
+    ck_assert_str_eq(addition("XXXC","I"),"INVALID");
+    ck_assert_str_eq(addition("CCCD","I"),"INVALID");
+    ck_assert_str_eq(addition("CCCM","I"),"INVALID");
+    ck_assert_str_eq(addition("VX","I"),"INVALID");
+    ck_assert_str_eq(addition("LC","I"),"INVALID");
+    ck_assert_str_eq(addition("DM","I"),"INVALID");
+    ck_assert_str_eq(addition("IVI","I"),"INVALID");
+    ck_assert_str_eq(addition("IXI","I"),"INVALID");
+    ck_assert_str_eq(addition("XLX","I"),"INVALID");
+    ck_assert_str_eq(addition("XCX","I"),"INVALID");
+    ck_assert_str_eq(addition("CMC","I"),"INVALID");
+    ck_assert_str_eq(addition("DMD","I"),"INVALID");
+    ck_assert_str_eq(addition("IVI","I"),"INVALID");
+    ck_assert_str_eq(addition("IL","I"),"INVALID");
+    ck_assert_str_eq(addition("IC","I"),"INVALID");
+    ck_assert_str_eq(addition("IM","I"),"INVALID");
+    ck_assert_str_eq(addition("LD","I"),"INVALID");
+    ck_assert_str_eq(addition("LM","I"),"INVALID");
+
+    ck_assert_str_eq(addition("MCMMXVI","I"),"INVALID");
+    ck_assert_str_eq(addition("MCMMXVI","MCMMXVI"),"INVALID");
+    ck_assert_str_eq(addition("XCXCXVI","I"),"INVALID");
+    ck_assert_str_eq(addition("XL","VCCXC"),"INVALID");
+    ck_assert_str_eq(addition("IMDCCIV","I"),"INVALID");
+    ck_assert_str_eq(addition("XCIV","CCIIV"),"INVALID");
+    ck_assert_str_eq(addition("XMCV","CCIV"),"INVALID");
+    ck_assert_str_eq(addition("XCIXIV","CCV"),"INVALID");
+    ck_assert_str_eq(addition("VCIX","CCV"),"INVALID");
+    ck_assert_str_eq(addition("XCXXV","CCV"),"INVALID");
+
+/* zero and negative output cases */ 
+    ck_assert_str_eq(subtraction("CXV","CXV"),"INVALID");
+    ck_assert_str_eq(subtraction_nondecimal("CXV","CXV"),"INVALID");
+
+    ck_assert_str_eq(subtraction("MCD","MDX"),"INVALID");
+    ck_assert_str_eq(subtraction_nondecimal("MCD","MDX"),"INVALID");
+
+/* invalid input */ 
+    ck_assert_str_eq(addition("H","I"),"INVALID");
+    ck_assert_str_eq(addition("I","x"),"INVALID");
